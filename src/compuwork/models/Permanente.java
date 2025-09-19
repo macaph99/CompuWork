@@ -3,49 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package compuwork.models;
-
 import java.time.LocalDate;
-import java.time.Period;
 
-/**
- *
- * @author user
- */
-public class Permanente extends Empleado{
+public class Permanente extends Empleado {
     private String planBeneficios;
 
-    public Permanente() {
+    public Permanente() { 
+        super(); 
+        setTipo_empleado("Permanente"); 
     }
 
-    public Permanente(String planBeneficios, int idEmpleado, String nombre, String apellido, int documento, LocalDate fechaVinculacion, LocalDate fechaIngreso, String tipo_empleado, double salario) {
-        super(idEmpleado, nombre, apellido, documento, fechaVinculacion, fechaIngreso, tipo_empleado, salario);
-        if(planBeneficios == null || planBeneficios.isEmpty()) {
-            throw new IllegalArgumentException("Plan de beneficios no puede ser vacío");
-        }
+    public Permanente(String nombre, String apellido, int documento, LocalDate fechaIngreso, double salario, LocalDate fechaVinculacion, String planBeneficios) {
+        super(nombre, apellido, documento, fechaIngreso, salario, "Permanente");
+        setFechaVinculacion(fechaVinculacion);
         this.planBeneficios = planBeneficios;
     }
 
-    public String getPlanBeneficios() {
-        return planBeneficios;
-    }
-
-    public void setPlanBeneficios(String planBeneficios) {
-        this.planBeneficios = planBeneficios;
+    public String getPlanBeneficios() { 
+        return planBeneficios; 
     }
     
-    //El period.between es usado para sacar la diferencia en  años.
-    public double calcularPago(){
-        int antiguedad = Period.between(getFechaIngreso(), LocalDate.now()).getYears();
-        
-        if (antiguedad < 0) {
-        antiguedad = 0;
+    public void setPlanBeneficios(String planBeneficios) { 
+        this.planBeneficios = planBeneficios; 
     }
 
-    // el plan de beneficio es que por año cumplido aumente un 5%el salario
-    double incremento = getSalario() * (antiguedad * 0.05);
-
-    return getSalario() + incremento;
-        
+    public boolean renunciar() { 
+        setActivo(false); 
+        return true; 
     }
-    
+
+    @Override
+    public String toString() {
+        return super.toString() + " [Permanente: planBeneficios='" + planBeneficios + "']";
+    }
 }

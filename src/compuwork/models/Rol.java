@@ -4,10 +4,6 @@
  */
 package compuwork.models;
 
-/**
- *
- * @author user
- */
 public enum Rol {
     ADMINISTRADOR, LIDER_DE_DEPARTAMENTO, EMPLEADO
 }

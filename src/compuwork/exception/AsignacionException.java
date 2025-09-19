@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package compuwork.models;
+package compuwork.exception;
 
-public enum TipoReportes {
-    INDIVIDUAL, DEPARTAMENTO
+public class AsignacionException extends CompuExceptions {
+    
+    public AsignacionException(String m){ 
+        super(m);
+    }
 }

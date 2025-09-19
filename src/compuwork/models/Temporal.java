@@ -4,34 +4,30 @@
  */
 package compuwork.models;
 import java.time.LocalDate;
-/**
- *
- * @author user
- */
-public class Temporal extends Empleado{
+
+public class Temporal extends Empleado {
     private LocalDate fechaCulminacion;
 
-    public Temporal() {
-        
+    public Temporal() { 
+        super(); setTipo_empleado("Temporal"); 
     }
 
-    public Temporal(LocalDate fechaCulminacion, int idEmpleado, String nombre, String apellido, int documento, LocalDate fechaVinculacion, LocalDate fechaIngreso, String tipo_empleado, double salario) {
-        super(idEmpleado, nombre, apellido, documento, fechaVinculacion, fechaIngreso, tipo_empleado, salario);
+    public Temporal(String nombre, String apellido, int documento, LocalDate fechaIngreso, double salario, LocalDate fechaVinculacion, LocalDate fechaCulminacion) {
+        super(nombre, apellido, documento, fechaIngreso, salario, "Temporal");
+        setFechaVinculacion(fechaVinculacion);
         this.fechaCulminacion = fechaCulminacion;
     }
 
-
-    public LocalDate getFechaCulminacion() {
-        return fechaCulminacion;
-    }
-
-    public void setFechaCulminacion(LocalDate fechaCulminacion) {
-        this.fechaCulminacion = fechaCulminacion;
+    public LocalDate getFechaCulminacion() { 
+        return fechaCulminacion; 
     }
     
-    //Porque no tiene plan de beneficios.
-    public double calcularPago() {
-    return getSalario();
+    public void setFechaCulminacion(LocalDate fechaCulminacion) { 
+        this.fechaCulminacion = fechaCulminacion; 
     }
-    
+
+    @Override
+    public String toString() {
+        return super.toString() + " [Temporal: culminación=" + fechaCulminacion + "]";
+    }
 }
