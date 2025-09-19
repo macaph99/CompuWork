@@ -3,23 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package compuwork;
+import compuwork.service.Sistema;
+import compuwork.view.ConsoleView;
 
-//import compuwork.models.ReporteDesempeno;
-//import compuwork.models.TipoReportes;
-import compuwork.views.consoleView;
-
-    public class CompuWork {
+public class compuwork {
     public static void main(String[] args) {
-        //aca toca largo paor el error en sintaxis
-        compuwork.views.consoleView view = new compuwork.views.consoleView();
-        view.mostrarMenu();  // aquí arrancamos el menú
+        Sistema sistema = new Sistema();
+        new ConsoleView(sistema).iniciar();
     }
-    
-    //public static void main(String[] args) {
-       // ReporteDesempeno type = new ReporteDesempeno();        
-
-        //type.seleccionarTipoReporte(TipoReportes.DEPARTAMENTO);
-       // type.generarReporte();
-       // System.out.println("El tipo de reporte es: " + type.getTipoReporte());
-}   
-
+}
