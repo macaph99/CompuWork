@@ -7,15 +7,16 @@ import compuwork.controller.DepartamentoController;
 import compuwork.service.Sistema;
 import compuwork.view.ConsoleView;
 import compuwork.view.DepartamentoView;
+import compuwork.view.SeleccionDeRol;
 
 public class CompuWork {
     public static void main(String[] args) {
         Sistema sistema = new Sistema();
         //new ConsoleView(sistema).iniciar();
 
-        DepartamentoController depCtrl = new DepartamentoController(sistema);
-
-        DepartamentoView view = new DepartamentoView(depCtrl);
+        //DepartamentoController depCtrl = new DepartamentoController(sistema);
+        SeleccionDeRol view = new SeleccionDeRol();
+        //DepartamentoView view = new DepartamentoView(depCtrl);
         view.setVisible(true);
     }
 }
