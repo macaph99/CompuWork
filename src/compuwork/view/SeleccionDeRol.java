@@ -4,6 +4,10 @@
  */
 package compuwork.view;
 
+import compuwork.controller.DepartamentoController;
+import compuwork.controller.EmpleadoController;
+import compuwork.service.Sistema;
+
 /**
  *
  * @author user
@@ -11,18 +15,23 @@ package compuwork.view;
 public class SeleccionDeRol extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SeleccionDeRol.class.getName());
-
+    private final Sistema sistema;
+    private final DepartamentoController depCtrl;
+    private final EmpleadoController empCtrl;
     /**
      * Creates new form SeleccionDeRol
      */
     public SeleccionDeRol() {
         initComponents();
+        this.sistema = new Sistema();
+        this.depCtrl  = new DepartamentoController(sistema);
+        this.empCtrl  = new EmpleadoController(sistema);
     }
     
     public void MainFrame(){
         setTitle("CompuWork");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1000, 800);
         setLocationRelativeTo(null);
     }
     
@@ -212,7 +221,7 @@ public class SeleccionDeRol extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSelectAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSelectAdmActionPerformed
-        AdminMenuView adminPanel = new AdminMenuView(); 
+        AdminMenuView adminPanel = new AdminMenuView(this, depCtrl, empCtrl); 
         
         setContentPane(adminPanel);
         revalidate();
@@ -220,9 +229,9 @@ public class SeleccionDeRol extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSelectAdmActionPerformed
 
     private void botonSelectEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSelectEmpActionPerformed
-        EmpleadoMenuView empleadoPanel = new EmpleadoMenuView();
+        EmpleadoMenuView empleadoView = new EmpleadoMenuView();
         
-        setContentPane(empleadoPanel);  
+        setContentPane(empleadoView);  
         revalidate();
         repaint();
     }//GEN-LAST:event_botonSelectEmpActionPerformed

@@ -4,17 +4,26 @@
  */
 package compuwork.view;
 
+import compuwork.controller.DepartamentoController;
+import compuwork.controller.EmpleadoController;
+
 /**
  *
  * @author user
  */
 public class AdminMenuView extends javax.swing.JPanel {
-
+    private SeleccionDeRol mainFrame;
+    private final DepartamentoController depCtrl;
+    private final EmpleadoController empCtrl;
     /**
      * Creates new form AdminMenuView
      */
-    public AdminMenuView() {
+    public AdminMenuView(SeleccionDeRol mainFrame, DepartamentoController depCtrl,
+                         EmpleadoController empCtrl) {
         initComponents();
+        this.mainFrame = mainFrame;        
+        this.depCtrl = depCtrl;        
+        this.empCtrl = empCtrl;
     }
 
     /**
@@ -41,7 +50,7 @@ public class AdminMenuView extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnRegDepto = new javax.swing.JButton();
         btnPermanente = new javax.swing.JButton();
         btnListarDeptos = new javax.swing.JButton();
         btnListarEmpleados = new javax.swing.JButton();
@@ -211,10 +220,10 @@ public class AdminMenuView extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Eliminar:");
 
-        jButton2.setText("REG. DEPARTAMENTO");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnRegDepto.setText("REG. DEPARTAMENTO");
+        btnRegDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRegDeptoActionPerformed(evt);
             }
         });
 
@@ -261,7 +270,7 @@ public class AdminMenuView extends javax.swing.JPanel {
                             .addComponent(btnListarEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addGap(88, 88, 88)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnRegDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnListarDeptos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPermanente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +303,7 @@ public class AdminMenuView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jButton2)
+                .addComponent(btnRegDepto)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -350,9 +359,10 @@ public class AdminMenuView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnRegDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegDeptoActionPerformed
+        DepartamentoView dptoView = new DepartamentoView(mainFrame, depCtrl, empCtrl);
+        mainFrame.cambiarVista(dptoView);
+    }//GEN-LAST:event_btnRegDeptoActionPerformed
 
     private void btnListarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpleadosActionPerformed
         // TODO add your handling code here:
@@ -373,10 +383,10 @@ public class AdminMenuView extends javax.swing.JPanel {
     private javax.swing.JButton btnListarDeptos;
     private javax.swing.JButton btnListarEmpleados;
     private javax.swing.JButton btnPermanente;
+    private javax.swing.JButton btnRegDepto;
     private javax.swing.JButton btnRepDep;
     private javax.swing.JButton btnRepInd;
     private javax.swing.JLabel empleadoLabel;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

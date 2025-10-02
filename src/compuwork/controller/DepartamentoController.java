@@ -11,12 +11,13 @@ import java.util.List;
 
 public class DepartamentoController {
     private final Sistema sistema;
-    public DepartamentoController(Sistema s){ 
-        this.sistema = s; 
+    
+    public DepartamentoController(Sistema sistema){ 
+        this.sistema = sistema; 
     }
 
-    public void registrar(Departamento d){ 
-        sistema.registrarDepartamento(d); 
+    public void registrar(Departamento departamento){ 
+        sistema.registrarDepartamento(departamento); 
         System.out.println("Departamento registrado."); 
     }
 

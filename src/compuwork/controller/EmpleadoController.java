@@ -10,11 +10,14 @@ import java.util.List;
 
 public class EmpleadoController {
     private final Sistema sistema;
-    public EmpleadoController(Sistema s){ this.sistema = s; }
+    
+    public EmpleadoController(Sistema sistema){ 
+        this.sistema = sistema; 
+    }
 
-    public void registrar(Empleado e){
+    public void registrar(Empleado empleado){
         try { 
-            sistema.registrarEmpleado(e); 
+            sistema.registrarEmpleado(empleado); 
             System.out.println("Empleado registrado."); 
         }
         catch (Exception ex){ 

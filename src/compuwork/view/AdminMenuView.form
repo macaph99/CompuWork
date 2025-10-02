@@ -208,7 +208,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="btnRegDepto" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="btnListarDeptos" alignment="1" min="-2" pref="154" max="-2" attributes="0"/>
@@ -254,7 +254,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRegDepto" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -423,12 +423,12 @@
             <Property name="text" type="java.lang.String" value="Eliminar:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnRegDepto">
           <Properties>
             <Property name="text" type="java.lang.String" value="REG. DEPARTAMENTO"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegDeptoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnPermanente">
