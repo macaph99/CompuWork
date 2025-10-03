@@ -26,7 +26,7 @@ public class Empleado {
         this.idEmpleado = contadorEmpleado++;
     }
 
-    public Empleado(String nombre, String apellido, long documento, LocalDate fechaIngreso, double salario, String tipo_empleado) { 
+    public Empleado(String nombre, String apellido, long documento, LocalDate fechaVinculacion, LocalDate fechaIngreso, double salario, String tipo_empleado) { 
         this.idEmpleado = contadorEmpleado++;
         this.nombre = nombre;
         this.apellido = apellido;

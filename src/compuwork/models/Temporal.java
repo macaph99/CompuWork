@@ -12,9 +12,8 @@ public class Temporal extends Empleado {
         super(); setTipo_empleado("Temporal"); 
     }
 
-    public Temporal(String nombre, String apellido, int documento, LocalDate fechaIngreso, double salario, LocalDate fechaVinculacion, LocalDate fechaCulminacion) {
-        super(nombre, apellido, documento, fechaIngreso, salario, "Temporal");
-        setFechaVinculacion(fechaVinculacion);
+    public Temporal(String nombre, String apellido, long documento, LocalDate fechaVinculacion, LocalDate fechaIngreso, double salario, LocalDate fechaCulminacion) {
+        super(nombre, apellido, documento, fechaVinculacion, fechaIngreso, salario, "Temporal");
         this.fechaCulminacion = fechaCulminacion;
     }
 

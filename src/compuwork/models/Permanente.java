@@ -13,8 +13,8 @@ public class Permanente extends Empleado {
         setTipo_empleado("Permanente"); 
     }
 
-    public Permanente(String nombre, String apellido, int documento, LocalDate fechaIngreso, double salario, LocalDate fechaVinculacion, String planBeneficios) {
-        super(nombre, apellido, documento, fechaIngreso, salario, "Permanente");
+    public Permanente(String nombre, String apellido, long documento, LocalDate fechaVinculacion, LocalDate fechaIngreso, double salario, String tipo_empleado) {
+        super(nombre, apellido, documento, fechaVinculacion, fechaIngreso, salario, "Permanente");
         setFechaVinculacion(fechaVinculacion);
         this.planBeneficios = planBeneficios;
     }

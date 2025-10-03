@@ -51,7 +51,7 @@ public class AdminMenuView extends javax.swing.JPanel {
         btnExit = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         btnRegDepto = new javax.swing.JButton();
-        btnPermanente = new javax.swing.JButton();
+        btnRegEmpleado = new javax.swing.JButton();
         btnListarDeptos = new javax.swing.JButton();
         btnListarEmpleados = new javax.swing.JButton();
         btnElimEmpl = new javax.swing.JButton();
@@ -227,7 +227,12 @@ public class AdminMenuView extends javax.swing.JPanel {
             }
         });
 
-        btnPermanente.setText("REG. EMPLEADO");
+        btnRegEmpleado.setText("REG. EMPLEADO");
+        btnRegEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegEmpleadoActionPerformed(evt);
+            }
+        });
 
         btnListarDeptos.setText("DEPARTAMENTOS");
 
@@ -272,7 +277,7 @@ public class AdminMenuView extends javax.swing.JPanel {
                             .addGap(88, 88, 88)
                             .addComponent(btnRegDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnListarDeptos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPermanente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRegEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -314,7 +319,7 @@ public class AdminMenuView extends javax.swing.JPanel {
                         .addComponent(btnElimDpto))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPermanente)
+                        .addComponent(btnRegEmpleado)
                         .addGap(12, 12, 12)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -365,12 +370,17 @@ public class AdminMenuView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegDeptoActionPerformed
 
     private void btnListarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpleadosActionPerformed
-        // TODO add your handling code here:
+        //Listar
     }//GEN-LAST:event_btnListarEmpleadosActionPerformed
 
     private void btnElimEmplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimEmplActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnElimEmplActionPerformed
+
+    private void btnRegEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegEmpleadoActionPerformed
+        EmpleadoView empView = new EmpleadoView(mainFrame, depCtrl, empCtrl);
+    mainFrame.cambiarVista(empView);
+    }//GEN-LAST:event_btnRegEmpleadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -382,8 +392,8 @@ public class AdminMenuView extends javax.swing.JPanel {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnListarDeptos;
     private javax.swing.JButton btnListarEmpleados;
-    private javax.swing.JButton btnPermanente;
     private javax.swing.JButton btnRegDepto;
+    private javax.swing.JButton btnRegEmpleado;
     private javax.swing.JButton btnRepDep;
     private javax.swing.JButton btnRepInd;
     private javax.swing.JLabel empleadoLabel;
