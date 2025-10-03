@@ -6,16 +6,22 @@ package compuwork.controller;
 import compuwork.exception.CompuExceptions;
 import compuwork.models.Empleado;
 import compuwork.service.Sistema;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EmpleadoController {
+    private final List<Empleado> empleados = new ArrayList<>();
     private final Sistema sistema;
+    
     
     public EmpleadoController(Sistema sistema){ 
         this.sistema = sistema; 
     }
 
     public void registrar(Empleado empleado){
+        if (empleado == null) throw new IllegalArgumentException("Empleado nulo");
+        empleados.add(empleado);       
         try { 
             sistema.registrarEmpleado(empleado); 
             System.out.println("Empleado registrado."); 
@@ -36,5 +42,8 @@ public class EmpleadoController {
         List<Empleado> l = sistema.listarEmpleados();
         if(l.isEmpty()) System.out.println("No hay empleados.");
         for(Empleado e: l) System.out.println(e);
+    }
+       public List<Empleado> getEmpleados() {
+        return Collections.unmodifiableList(empleados);
     }
 }

@@ -142,7 +142,7 @@ public class ConsoleView {
         LocalDate fechaVinculacion = leerFecha("Ingrese la fecha de vinculación (yyyy-MM-dd): ");
         String planBeneficios = leerTxt("Ingrese el plan de beneficios: ");
 
-        Permanente permanente = new Permanente(nombre, apellido, documento, fechaIngreso, salario, fechaVinculacion, planBeneficios);
+        Permanente permanente = new Permanente(nombre, apellido, documento, fechaVinculacion, fechaIngreso, salario, planBeneficios);
         empCtrl.registrar(permanente);
 
         System.out.println("Empleado permanente registrado con éxito.");
@@ -157,7 +157,7 @@ public class ConsoleView {
         LocalDate fechaVinculacion = leerFecha("Ingrese la fecha de vinculación (yyyy-MM-dd): ");
         LocalDate fechaCulminacion = leerFecha("Ingrese la fecha de culminación (yyyy-MM-dd): ");
 
-        Temporal temporal = new Temporal(nombre, apellido, documento, fechaIngreso, salario, fechaVinculacion, fechaCulminacion);
+        Temporal temporal = new Temporal(nombre, apellido, documento, fechaVinculacion, fechaIngreso, salario, fechaCulminacion);
         empCtrl.registrar(temporal);
 
         System.out.println("Empleado temporal registrado con éxito.");
