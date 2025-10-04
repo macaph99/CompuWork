@@ -11,6 +11,7 @@ import java.util.List;
 
 public class DepartamentoController {
     private final Sistema sistema;
+    private final java.util.List<Departamento> departamentos = new java.util.ArrayList<>();
     
     public DepartamentoController(Sistema sistema){ 
         this.sistema = sistema; 
@@ -31,6 +32,10 @@ public class DepartamentoController {
         }
     }
     
+    public boolean eliminarPorNombre(String nombre) {
+    return departamentos.removeIf(d -> nombre != null && nombre.equals(d.getNombre()));
+}
+    
     public void listar(){
         List<Departamento> l = sistema.listarDepartamentos();
         if(l.isEmpty()) System.out.println("No hay departamentos.");
@@ -46,5 +51,9 @@ public class DepartamentoController {
         } catch (CompuExceptions ex){ 
             System.out.println("Error: "+ex.getMessage()); 
         }
+    }
+    
+    public java.util.List<Departamento> getDepartamentos() {
+    return java.util.Collections.unmodifiableList(departamentos);
     }
 }

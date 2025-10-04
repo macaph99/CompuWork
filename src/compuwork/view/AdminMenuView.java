@@ -235,6 +235,11 @@ public class AdminMenuView extends javax.swing.JPanel {
         });
 
         btnListarDeptos.setText("DEPARTAMENTOS");
+        btnListarDeptos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarDeptosActionPerformed(evt);
+            }
+        });
 
         btnListarEmpleados.setText("EMPLEADOS");
         btnListarEmpleados.addActionListener(new java.awt.event.ActionListener() {
@@ -370,7 +375,8 @@ public class AdminMenuView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRegDeptoActionPerformed
 
     private void btnListarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpleadosActionPerformed
-        //Listar
+         EmpleadoListView listView = new EmpleadoListView(mainFrame, empCtrl);
+    mainFrame.cambiarVista(listView);
     }//GEN-LAST:event_btnListarEmpleadosActionPerformed
 
     private void btnElimEmplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimEmplActionPerformed
@@ -381,6 +387,11 @@ public class AdminMenuView extends javax.swing.JPanel {
         EmpleadoView empView = new EmpleadoView(mainFrame, depCtrl, empCtrl);
     mainFrame.cambiarVista(empView);
     }//GEN-LAST:event_btnRegEmpleadoActionPerformed
+
+    private void btnListarDeptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDeptosActionPerformed
+         DepartamentoListView view = new DepartamentoListView(mainFrame, depCtrl, empCtrl);
+    mainFrame.cambiarVista(view);
+    }//GEN-LAST:event_btnListarDeptosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

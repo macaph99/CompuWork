@@ -4,173 +4,148 @@
  */
 package compuwork.view;
 
-import compuwork.controller.EmpleadoController;
 import compuwork.controller.DepartamentoController;
-import java.time.format.DateTimeFormatter;
-import javax.swing.JOptionPane;
+import compuwork.controller.EmpleadoController;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.table.TableColumn;
+
 
 /**
  *
  * @author Jorge
  */
 
-public class EmpleadoListView extends javax.swing.JPanel {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DepartamentoView.class.getName());
+public class DepartamentoListView extends javax.swing.JPanel {
 
     private SeleccionDeRol mainFrame;
     private DepartamentoController depCtrl;
     private EmpleadoController empCtrl;
 
-    //maca dice: aca se debe crear el constructor para poder onectar el listado a la tabla, pero aún no sabemos como
-    public EmpleadoListView() {
+    /**
+     * Creates new form DepartamentoListView
+     */
+    public DepartamentoListView() {
         initComponents();
     }
 
-    /**
-     * Creates new form EmpleadoListView
-     */
-    public EmpleadoListView(SeleccionDeRol mainFrame, EmpleadoController empCtrl) {
+    public DepartamentoListView(SeleccionDeRol mainFrame, DepartamentoController depCtrl, EmpleadoController empCtrl) {
         initComponents();
         this.mainFrame = mainFrame;
+        this.depCtrl = depCtrl;
         this.empCtrl = empCtrl;
-        configurarColumnaEliminarComoBoton();
-        cargarDatos();      
+        configurarColumnaEliminarComoBoton(); 
+        cargarDatos();                       
     }
     
-     // Carga/recarga la tabla con la lista actual de empleados
     private void cargarDatos() {
-        DefaultTableModel model = (DefaultTableModel) tblEmpleados.getModel();
-
+        DefaultTableModel model = (DefaultTableModel) tblEmpleados.getModel(); 
         model.setRowCount(0);
-        var lista = empCtrl.getEmpleados();
 
-        DateTimeFormatter F = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        for (var e : lista) {
-            String fechaVinc = (e.getFechaVinculacion() == null) ? "" : e.getFechaVinculacion().format(F);
-            String fechaIngr = (e.getFechaIngreso() == null) ? "" : e.getFechaIngreso().format(F);
+        var lista = depCtrl.getDepartamentos();
 
-            Object[] fila = {
-                e.getNombre(),
-                e.getApellido(),
-                e.getDocumento(),
-                fechaVinc,
-                fechaIngr,
-                e.getTipo_empleado(),
-                e.getSalario(),
-                "eliminar"
-            };
-            model.addRow(fila);
+        for (var d : lista) {
+            model.addRow(new Object[]{
+                d.getNombre(),
+                d.getDescripcion(),
+                d.getNumeroEmpleados(),
+                "Eliminar"
+            });
         }
     }
-     
-// ====== RENDERER: pinta un botón en la celda (apariencia) ======
-private static class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
 
+    
+  // ====== RENDERER: botón "Eliminar" ======
+private static class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
     ButtonRenderer() {
         setOpaque(true);
         setFocusPainted(false);
         setForeground(java.awt.Color.WHITE);
-        setBackground(new java.awt.Color(220, 53, 69)); // rojo tipo "danger"
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 10));
+        setBackground(new java.awt.Color(220, 53, 69));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(2,10,2,10));
         setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
     }
-
     @Override
     public java.awt.Component getTableCellRendererComponent(
-            javax.swing.JTable table,
-            Object value,
-            boolean isSelected,
-            boolean hasFocus,
-            int row,
-            int column) {
-
+            javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         setText(value == null ? "Eliminar" : String.valueOf(value));
         return this;
     }
 }
 
-// ====== EDITOR: hace que el botón sea clickeable y ejecute la acción ======
-private class ButtonEditor extends DefaultCellEditor {
+// ====== EDITOR: acción al hacer clic ======
+    private class ButtonEditor extends DefaultCellEditor {
 
-    private final JButton button = new JButton();
-    private String currentText;
-    private int currentRow = -1;
-    private boolean clicked;
+        private final JButton button = new JButton();
+        private String currentText;
+        private int currentRow = -1;
+        private boolean clicked;
 
-    public ButtonEditor() {
-        super(new JTextField());
-        setClickCountToStart(1);
-        button.setOpaque(true);
-        button.setFocusPainted(false);
-        button.setForeground(Color.WHITE);
-        button.setBackground(new Color(220, 53, 69));
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.addActionListener(e -> fireEditingStopped());
-    }
+        public ButtonEditor() {
+            super(new JTextField());
+            setClickCountToStart(1);
+            button.setOpaque(true);
+            button.setFocusPainted(false);
+            button.setForeground(java.awt.Color.WHITE);
+            button.setBackground(new java.awt.Color(220, 53, 69));
+            button.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+            button.addActionListener(e -> fireEditingStopped());
+        }
 
-    @Override
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        currentText = (value == null) ? "Eliminar" : value.toString();
-        currentRow = row;
-        button.setText(currentText);
-        clicked = true;
-        return button;
-    }
+        @Override
+        public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value, boolean isSelected, int row, int column) {
+            currentText = (value == null) ? "Eliminar" : String.valueOf(value);
+            currentRow = row;
+            button.setText(currentText);
+            clicked = true;
+            return button;
+        }
 
     @Override
     public Object getCellEditorValue() {
         if (clicked) {
-            int resp = JOptionPane.showConfirmDialog(
-                    EmpleadoListView.this,
-                    "¿Estás seguro de eliminar este empleado?",
+            int resp = javax.swing.JOptionPane.showConfirmDialog(
+                    DepartamentoListView.this,
+                    "¿Estás seguro de eliminar este departamento?",
                     "Confirmación",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE
+                    javax.swing.JOptionPane.YES_NO_OPTION,
+                    javax.swing.JOptionPane.WARNING_MESSAGE
             );
-            if (resp == JOptionPane.YES_OPTION) {
-                
-                int colDocumento = tblEmpleados.getColumnModel().getColumnIndex("Documento");
-                Object cell = tblEmpleados.getValueAt(currentRow, colDocumento);
+            if (resp == javax.swing.JOptionPane.YES_OPTION) {
+                int colNombre = tblEmpleados.getColumnModel().getColumnIndex("Nombre");
+                String nombre = String.valueOf(tblEmpleados.getValueAt(currentRow, colNombre));
 
-                long docId = (cell instanceof Number)
-                        ? ((Number) cell).longValue()
-                        : Long.parseLong(String.valueOf(cell));
 
-                boolean ok = empCtrl.eliminarPorDocumento(docId);
-
+                boolean ok = depCtrl.eliminarPorNombre(nombre);
                 if (!ok) {
-                    JOptionPane.showMessageDialog(EmpleadoListView.this, "No se pudo eliminar (no encontrado).");
+                    javax.swing.JOptionPane.showMessageDialog(DepartamentoListView.this, "No se pudo eliminar (no encontrado).");
                 } else {
                     cargarDatos();
                 }
             }
         }
         clicked = false;
-        return currentText; 
+        return currentText;
     }
 
     @Override
     public boolean stopCellEditing() {
         clicked = false;
         return super.stopCellEditing();
+    }    
+    
     }
-}
+    
+    private void configurarColumnaEliminarComoBoton() {
+        tblEmpleados.getTableHeader().setReorderingAllowed(false); // opcional
+        TableColumn colEliminar = tblEmpleados.getColumn("ELIMINAR");
+        colEliminar.setCellRenderer(new ButtonRenderer());
+        colEliminar.setCellEditor(new ButtonEditor());
+        colEliminar.setPreferredWidth(100);
+    }
 
-private void configurarColumnaEliminarComoBoton() {
-    tblEmpleados.getTableHeader().setReorderingAllowed(false);
-    javax.swing.table.TableColumn colEliminar = tblEmpleados.getColumn("ELIMINAR");
-    colEliminar.setCellRenderer(new ButtonRenderer());
-    colEliminar.setCellEditor(new ButtonEditor());
 
-    colEliminar.setPreferredWidth(100);
-}
-
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,7 +156,7 @@ private void configurarColumnaEliminarComoBoton() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        tblDepartamentos = new javax.swing.JPanel();
         Nombre = new javax.swing.JLabel();
         botonRegistrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -190,11 +165,11 @@ private void configurarColumnaEliminarComoBoton() {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmpleados = new javax.swing.JTable();
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tblDepartamentos.setBackground(new java.awt.Color(255, 255, 255));
+        tblDepartamentos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         Nombre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        Nombre.setText("Lista de empleados:");
+        Nombre.setText("Lista de departamentos:");
 
         botonRegistrar.setBackground(new java.awt.Color(0, 255, 0));
         botonRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -223,7 +198,7 @@ private void configurarColumnaEliminarComoBoton() {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(125, 125, 125)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,76 +221,77 @@ private void configurarColumnaEliminarComoBoton() {
 
         tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Documento", "Fecha vinculacion", "Fecha ingreso", "Tipo empleado", "Salario", "ELIMINAR"
+                "Nombre", "Descripción", "Número de empleados", "ELIMINAR"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         tblEmpleados.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblEmpleados);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout tblDepartamentosLayout = new javax.swing.GroupLayout(tblDepartamentos);
+        tblDepartamentos.setLayout(tblDepartamentosLayout);
+        tblDepartamentosLayout.setHorizontalGroup(
+            tblDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(Nombre))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(tblDepartamentosLayout.createSequentialGroup()
+                .addGroup(tblDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tblDepartamentosLayout.createSequentialGroup()
                         .addGap(184, 184, 184)
                         .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(tblDepartamentosLayout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(Nombre)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        tblDepartamentosLayout.setVerticalGroup(
+            tblDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tblDepartamentosLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(tblDepartamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tblDepartamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tblDepartamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        AdminMenuView adminView = new AdminMenuView(mainFrame, depCtrl, empCtrl);
-
-        mainFrame.cambiarVista(adminView);
-    }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
 
@@ -344,15 +320,21 @@ private void configurarColumnaEliminarComoBoton() {
         }*/
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+        AdminMenuView adminView = new AdminMenuView(mainFrame, depCtrl, empCtrl);
+
+        mainFrame.cambiarVista(adminView);
+    }//GEN-LAST:event_botonRegresarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Nombre;
     private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton botonRegresar;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel tblDepartamentos;
     private javax.swing.JTable tblEmpleados;
     // End of variables declaration//GEN-END:variables
 }

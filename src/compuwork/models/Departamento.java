@@ -14,6 +14,7 @@ public class Departamento {
     private int idDepartamento;
     private String nombre;
     private String descripcion;
+    private int numeroEmpleados;
     private List<Empleado> empleados = new ArrayList<>();
 
     public Departamento() {
@@ -39,6 +40,16 @@ public class Departamento {
     public void setDescripcion(String descripcion) { 
         this.descripcion = descripcion;
     }
+
+    public int getNumeroEmpleados() {
+        return numeroEmpleados;
+    }
+
+    public void setNumeroEmpleados(int numeroEmpleados) {
+        this.numeroEmpleados = numeroEmpleados;
+    }
+    
+    
     public List<Empleado> getEmpleados() { 
         return Collections.unmodifiableList(empleados); 
     }
@@ -50,7 +61,7 @@ public class Departamento {
     public void removerEmpleado(Empleado empleado) {
         if (empleados.remove(empleado)) { empleado.setDepartamento(null); }
     }
-
+    
     @Override
     public String toString() {
         return "DEPARTAMENTO " + idDepartamento + "\n" +

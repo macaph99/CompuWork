@@ -3,17 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package compuwork.view;
+
 import compuwork.controller.EmpleadoController;
 import compuwork.controller.DepartamentoController;
 import compuwork.models.Empleado;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
 public class EmpleadoView extends javax.swing.JPanel {
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DepartamentoView.class.getName());
     private SeleccionDeRol mainFrame;
     private DepartamentoController depCtrl;
@@ -28,7 +31,8 @@ public class EmpleadoView extends javax.swing.JPanel {
         this.depCtrl = depCtrl;
         this.empCtrl = empCtrl;
     }
-
+    // Carga/recarga la tabla con la lista actual de empleados 
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -295,9 +299,9 @@ public class EmpleadoView extends javax.swing.JPanel {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
 
-        try{
+        try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            
+
             String nombreEmpleado = textNombre.getText().trim();
             String apellidoEmpleado = textApellido.getText().trim();
             long documentoEmpleado = Long.parseLong(textDocument.getText().trim());
@@ -307,15 +311,13 @@ public class EmpleadoView extends javax.swing.JPanel {
             LocalDate fechaIngresoEmpleado = LocalDate.parse(fechaIngreso, formatter);
             String tipoEmpleado = "";
             double salarioEmpleado = Double.parseDouble(textSalario.getText().trim());
-                    
 
             if (temportalOption.isSelected()) {
                 tipoEmpleado = "temporal";
             } else if (permanenteOption.isSelected()) {
                 tipoEmpleado = "permanente";
             }
-            
-            
+
             if (nombreEmpleado.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
                 return;
@@ -342,7 +344,6 @@ public class EmpleadoView extends javax.swing.JPanel {
 
                 JOptionPane.showMessageDialog(this, "Empleado registrado con éxito.");
 
-
                 empCtrl.registrar(empleado);
 
                 textNombre.setText("");
@@ -355,7 +356,7 @@ public class EmpleadoView extends javax.swing.JPanel {
                 permanenteOption.setSelected(false);
             }
 
-        } catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed

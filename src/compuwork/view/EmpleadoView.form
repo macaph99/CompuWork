@@ -111,12 +111,10 @@
                                       <Component id="permanenteOption" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="textSalario" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="textApellido" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="textDocument" max="32767" attributes="0"/>
-                                      <Component id="vinculationDate" max="32767" attributes="0"/>
-                                      <Component id="startingDate" min="-2" pref="213" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="textApellido" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textDocument" max="32767" attributes="0"/>
+                                  <Component id="vinculationDate" max="32767" attributes="0"/>
+                                  <Component id="startingDate" min="-2" pref="213" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
