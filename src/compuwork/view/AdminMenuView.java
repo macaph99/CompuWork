@@ -49,13 +49,10 @@ public class AdminMenuView extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
         btnRegDepto = new javax.swing.JButton();
         btnRegEmpleado = new javax.swing.JButton();
         btnListarDeptos = new javax.swing.JButton();
         btnListarEmpleados = new javax.swing.JButton();
-        btnElimEmpl = new javax.swing.JButton();
-        btnElimDpto = new javax.swing.JButton();
         btnRepInd = new javax.swing.JButton();
         btnRepDep = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -217,9 +214,6 @@ public class AdminMenuView extends javax.swing.JPanel {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel11.setText("Eliminar:");
-
         btnRegDepto.setText("REG. DEPARTAMENTO");
         btnRegDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,15 +242,6 @@ public class AdminMenuView extends javax.swing.JPanel {
             }
         });
 
-        btnElimEmpl.setText("EMPLEADO");
-        btnElimEmpl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnElimEmplActionPerformed(evt);
-            }
-        });
-
-        btnElimDpto.setText("DEPARTAMENTO");
-
         btnRepInd.setText("INDIVIDUAL");
 
         btnRepDep.setText("POR DEPARTAMENTO");
@@ -271,36 +256,30 @@ public class AdminMenuView extends javax.swing.JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnListarEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGap(88, 88, 88)
+                            .addGap(72, 72, 72)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnListarDeptos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnListarEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(btnRegDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnListarDeptos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnElimDpto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRepDep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                                .addComponent(btnRepInd, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnElimEmpl, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(36, 36, 36))
+                            .addComponent(btnRepInd, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRegEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRepDep, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(136, 136, 136))))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(252, 252, 252)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,36 +292,28 @@ public class AdminMenuView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(btnRegDepto)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(btnElimEmpl))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnElimDpto))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegEmpleado)
-                        .addGap(12, 12, 12)))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnListarEmpleados)
-                            .addComponent(btnRepInd)
-                            .addComponent(jLabel7))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnListarDeptos)
-                    .addComponent(btnRepDep))
-                .addGap(18, 18, 18)
-                .addComponent(btnExit)
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(btnRegDepto)
+                    .addComponent(btnRegEmpleado))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRepInd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRepDep)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnExit)
+                        .addContainerGap(13, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnListarEmpleados)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnListarDeptos)
+                        .addGap(67, 67, 67))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -365,41 +336,35 @@ public class AdminMenuView extends javax.swing.JPanel {
         
     }//GEN-LAST:event_botonSelectEmpActionPerformed
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExitActionPerformed
+    private void btnListarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpleadosActionPerformed
+        EmpleadoListView listView = new EmpleadoListView(mainFrame, empCtrl);
+        mainFrame.cambiarVista(listView);
+    }//GEN-LAST:event_btnListarEmpleadosActionPerformed
+
+    private void btnListarDeptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDeptosActionPerformed
+        DepartamentoListView listview = new DepartamentoListView(mainFrame, depCtrl, empCtrl);
+        mainFrame.cambiarVista(listview);
+    }//GEN-LAST:event_btnListarDeptosActionPerformed
+
+    private void btnRegEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegEmpleadoActionPerformed
+        EmpleadoView empView = new EmpleadoView(mainFrame, depCtrl, empCtrl);
+        mainFrame.cambiarVista(empView);
+    }//GEN-LAST:event_btnRegEmpleadoActionPerformed
 
     private void btnRegDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegDeptoActionPerformed
         DepartamentoView dptoView = new DepartamentoView(mainFrame, depCtrl, empCtrl);
         mainFrame.cambiarVista(dptoView);
     }//GEN-LAST:event_btnRegDeptoActionPerformed
 
-    private void btnListarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEmpleadosActionPerformed
-         EmpleadoListView listView = new EmpleadoListView(mainFrame, empCtrl);
-    mainFrame.cambiarVista(listView);
-    }//GEN-LAST:event_btnListarEmpleadosActionPerformed
-
-    private void btnElimEmplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimEmplActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnElimEmplActionPerformed
-
-    private void btnRegEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegEmpleadoActionPerformed
-        EmpleadoView empView = new EmpleadoView(mainFrame, depCtrl, empCtrl);
-    mainFrame.cambiarVista(empView);
-    }//GEN-LAST:event_btnRegEmpleadoActionPerformed
-
-    private void btnListarDeptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarDeptosActionPerformed
-         DepartamentoListView view = new DepartamentoListView(mainFrame, depCtrl, empCtrl);
-    mainFrame.cambiarVista(view);
-    }//GEN-LAST:event_btnListarDeptosActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel administradorLabel;
     private javax.swing.JButton botonSelectAdm;
     private javax.swing.JButton botonSelectEmp;
-    private javax.swing.JButton btnElimDpto;
-    private javax.swing.JButton btnElimEmpl;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnListarDeptos;
     private javax.swing.JButton btnListarEmpleados;
@@ -409,7 +374,6 @@ public class AdminMenuView extends javax.swing.JPanel {
     private javax.swing.JButton btnRepInd;
     private javax.swing.JLabel empleadoLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
