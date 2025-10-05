@@ -11,13 +11,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author user
- */
 public class EmpleadoView extends javax.swing.JPanel {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DepartamentoView.class.getName());
+    private javax.swing.JComboBox<compuwork.models.Departamento> comboDepartamento;
     private SeleccionDeRol mainFrame;
     private DepartamentoController depCtrl;
     private EmpleadoController empCtrl;
@@ -26,12 +23,43 @@ public class EmpleadoView extends javax.swing.JPanel {
      * Creates new form EmpleadoView
      */
     public EmpleadoView(SeleccionDeRol mainFrame, DepartamentoController depCtrl, EmpleadoController empCtrl) {
-        initComponents();
-        this.mainFrame = mainFrame;
-        this.depCtrl = depCtrl;
-        this.empCtrl = empCtrl;
+    initComponents();
+    this.mainFrame = mainFrame;
+    this.depCtrl = depCtrl;
+    this.empCtrl = empCtrl;
+
+    comboDepartamento = new javax.swing.JComboBox<>();
+    for (var d : depCtrl.getDepartamentos()) {
+        comboDepartamento.addItem(d);
     }
-    // Carga/recarga la tabla con la lista actual de empleados 
+
+    comboDepartamento.setRenderer(new javax.swing.DefaultListCellRenderer() {
+        @Override
+        public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof compuwork.models.Departamento d) {
+                setText(d.getIdDepartamento() + " - " + d.getNombre());
+            }
+            return this;
+        }
+    });
+
+    javax.swing.JLabel labelDepartamento = new javax.swing.JLabel("Departamento:");
+    labelDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    
+    comboDepartamento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+    comboDepartamento.setBackground(java.awt.Color.WHITE);
+    comboDepartamento.setFocusable(false);
+    
+    labelDepartamento.setBounds(13, 349, 246, 30);
+    comboDepartamento.setBounds(338, 349, 213, 30);
+    
+    jPanel2.add(labelDepartamento);
+    jPanel2.add(comboDepartamento);
+
+    jPanel2.repaint();
+    jPanel2.revalidate();
+    }
        
     /**
      * This method is called from within the constructor to initialize the form.
@@ -345,7 +373,18 @@ public class EmpleadoView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Empleado registrado con éxito.");
 
                 empCtrl.registrar(empleado);
+                
+                compuwork.models.Departamento depSel = 
+                    (compuwork.models.Departamento) comboDepartamento.getSelectedItem();
 
+                if (depSel == null) {
+                    JOptionPane.showMessageDialog(this, "Selecciona un departamento.");
+                    return;
+                }
+                empCtrl.asignarADepartamento(empleado.getIdEmpleado(), depSel.getIdDepartamento());
+
+                JOptionPane.showMessageDialog(this, "Empleado registrado y asignado a " + depSel.getNombre());
+                
                 textNombre.setText("");
                 textApellido.setText("");
                 textDocument.setText("");
@@ -354,6 +393,7 @@ public class EmpleadoView extends javax.swing.JPanel {
                 textSalario.setText("");
                 temportalOption.setSelected(false);
                 permanenteOption.setSelected(false);
+                comboDepartamento.setSelectedIndex(-1);
             }
 
         } catch (Exception e) {

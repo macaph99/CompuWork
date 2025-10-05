@@ -4,18 +4,34 @@
  */
 package compuwork.view;
 
+import compuwork.controller.DepartamentoController;
+import compuwork.controller.EmpleadoController;
+import compuwork.controller.ReporteController;
 /**
  *
  * @author user
  */
 public class EmpleadoMenuView extends javax.swing.JPanel {
-
+    private SeleccionDeRol mainFrame;
+    private ReporteController repCtrl;
+    private EmpleadoController empCtrl;
+    private DepartamentoController depCtrl;
+    
     /**
      * Creates new form EmpleadoMenuView
      */
-    public EmpleadoMenuView() {
+    
+    public EmpleadoMenuView(SeleccionDeRol mainFrame, ReporteController repCtrl, EmpleadoController empCtrl, DepartamentoController depCtrl) {
         initComponents();
+        this.mainFrame = mainFrame;
+        this.repCtrl = repCtrl;
+        this.empCtrl = empCtrl;
+        this.depCtrl = depCtrl;
+
+        btnRepInd.addActionListener(e -> btnRepIndActionPerformed(e));
+        btnRepDep.addActionListener(e -> btnRepDepActionPerformed(e));
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,8 +116,18 @@ public class EmpleadoMenuView extends javax.swing.JPanel {
         });
 
         btnRepInd.setText("INDIVIDUAL");
+        btnRepInd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRepIndActionPerformed(evt);
+            }
+        });
 
         btnRepDep.setText("POR DEPARTAMENTO");
+        btnRepDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRepDepActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Reporte:");
@@ -172,8 +198,64 @@ public class EmpleadoMenuView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        if (mainFrame != null) mainFrame.volverAInicio();
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnRepDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepDepActionPerformed
+        var deps = depCtrl.getDepartamentos();
+        if (deps.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No hay departamentos.");
+            return;
+        }
+
+        String[] opciones = new String[deps.size()];
+        for (int i=0; i<deps.size(); i++) {
+            var d = deps.get(i);
+            opciones[i] = d.getIdDepartamento() + " - " + d.getNombre();
+        }
+
+        String sel = (String) javax.swing.JOptionPane.showInputDialog(
+                this, "Seleccione departamento:", "Reporte por Departamento",
+                javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (sel != null) {
+            int id = Integer.parseInt(sel.split(" - ")[0]);
+            try {
+                String texto = repCtrl.departamentoTexto(id);
+                javax.swing.JOptionPane.showMessageDialog(this, texto, "Reporte", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnRepDepActionPerformed
+
+    private void btnRepIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepIndActionPerformed
+        var empleados = empCtrl.getEmpleados();
+        if (empleados.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No hay empleados.");
+            return;
+        }
+
+        String[] opciones = new String[empleados.size()];
+        for (int i=0; i<empleados.size(); i++) {
+            var e = empleados.get(i);
+            opciones[i] = e.getIdEmpleado() + " - " + e.getNombre() + " " + e.getApellido();
+        }
+
+        String sel = (String) javax.swing.JOptionPane.showInputDialog(
+                this, "Seleccione empleado:", "Reporte Individual",
+                javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (sel != null) {
+            int id = Integer.parseInt(sel.split(" - ")[0]);
+            try {
+                String texto = repCtrl.empleadoTexto(id);
+                javax.swing.JOptionPane.showMessageDialog(this, texto, "Reporte", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception ex) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnRepIndActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

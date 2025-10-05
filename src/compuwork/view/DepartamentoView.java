@@ -213,30 +213,50 @@ public class DepartamentoView extends javax.swing.JPanel {
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
 
-        try{
-            String nombreDepartamento = textNombre.getText();
-            String descripcionDepartamento = textDescripcion.getText();
-            Departamento departamento = new Departamento(nombreDepartamento, descripcionDepartamento);
-            
-            if(nombreDepartamento.equals("") && descripcionDepartamento.equals("")){
-                JOptionPane.showMessageDialog(this, "Campos nombre y descripción vacios.");
-            } else if(nombreDepartamento.equals("") && !descripcionDepartamento.equals("")){
-                JOptionPane.showMessageDialog(this, "Campo nombre vacio.");
-            } else if(!nombreDepartamento.equals("") && descripcionDepartamento.equals("")){
-                JOptionPane.showMessageDialog(this, "Campo descripcion vacio.");
-            } else{
-                depCtrl.registrar(departamento);
+        try {
+            String nombreDepartamento = textNombre.getText().trim();
+            String descripcionDepartamento = textDescripcion.getText().trim();
 
-                JOptionPane.showMessageDialog(this, "Departamento registrado con éxito");
-
-                textNombre.setText("");
-                textDescripcion.setText("");
+            if (nombreDepartamento.isEmpty() && descripcionDepartamento.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Campos nombre y descripción vacíos.");
+                return;
             }
-            
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
+            if (nombreDepartamento.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Campo nombre vacío.");
+                return;
+            }
+            if (descripcionDepartamento.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Campo descripción vacío.");
+                return;
+            }
 
+            // Validar duplicados antes de registrar
+            boolean existe = depCtrl.getDepartamentos().stream()
+                    .anyMatch(d -> d.getNombre().equalsIgnoreCase(nombreDepartamento));
+
+            if (existe) {
+                JOptionPane.showMessageDialog(this, 
+                    "Ya existe un departamento con ese nombre.", 
+                    "Duplicado", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Departamento departamento = new Departamento(nombreDepartamento, descripcionDepartamento);
+            depCtrl.registrar(departamento);
+
+            JOptionPane.showMessageDialog(this, "Departamento registrado con éxito.");
+
+            textNombre.setText("");
+            textDescripcion.setText("");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Error registrando el departamento: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+            logger.severe("Error registrando departamento: " + e.getMessage());
+        }                  
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed

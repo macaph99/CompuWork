@@ -1,34 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package compuwork.controller;
+
 import compuwork.exception.CompuExceptions;
 import compuwork.models.ReporteDesempeno;
 import compuwork.service.Sistema;
 
 public class ReporteController {
     private final Sistema sistema;
-    public ReporteController(Sistema s){ 
-        this.sistema = s; 
+
+    public ReporteController(Sistema sistema) {
+        this.sistema = sistema;
     }
 
-    public void empleado(int idEmpleado){
-        try { 
-            ReporteDesempeno r = sistema.reporteEmpleado(idEmpleado); 
-            r.mostrarReporte(); 
-        }
-        catch (CompuExceptions ex){ 
-            System.out.println("Error: "+ex.getMessage()); 
-        }
+    public String empleadoTexto(int idEmpleado) throws CompuExceptions {
+        ReporteDesempeno reporte = sistema.reporteEmpleado(idEmpleado);
+        return "REPORTE INDIVIDUAL\n\n" + reporte.getMetricas();
     }
-    public void departamento(int idDepartamento){
-        try { 
-            ReporteDesempeno r = sistema.reporteDepartamento(idDepartamento); 
-            r.mostrarReporte(); 
-        }
-        catch (CompuExceptions ex){ 
-            System.out.println("Error: "+ex.getMessage()); 
-        }
+
+    public String departamentoTexto(int idDepartamento) throws CompuExceptions {
+        ReporteDesempeno reporte = sistema.reporteDepartamento(idDepartamento);
+        return "REPORTE POR DEPARTAMENTO\n\n" + reporte.getMetricas();
     }
 }

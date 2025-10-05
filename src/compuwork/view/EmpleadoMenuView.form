@@ -218,11 +218,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="INDIVIDUAL"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRepIndActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnRepDep">
               <Properties>
                 <Property name="text" type="java.lang.String" value="POR DEPARTAMENTO"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRepDepActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>

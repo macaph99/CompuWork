@@ -40,6 +40,14 @@ public class SeleccionDeRol extends javax.swing.JFrame {
         revalidate();
         repaint();
     }
+    
+    public void volverAInicio() {
+        getContentPane().removeAll();
+        initComponents();
+        revalidate();
+        repaint();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,9 +237,10 @@ public class SeleccionDeRol extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSelectAdmActionPerformed
 
     private void botonSelectEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSelectEmpActionPerformed
-        EmpleadoMenuView empleadoView = new EmpleadoMenuView();
-        
-        setContentPane(empleadoView);  
+        EmpleadoMenuView empleadoView = new EmpleadoMenuView(this,
+            new compuwork.controller.ReporteController(sistema),
+            empCtrl, depCtrl);
+        setContentPane(empleadoView);
         revalidate();
         repaint();
     }//GEN-LAST:event_botonSelectEmpActionPerformed
@@ -273,4 +282,5 @@ public class SeleccionDeRol extends javax.swing.JFrame {
     private javax.swing.JPanel panelAdministrador;
     private javax.swing.JPanel panelEmpleado;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -22,9 +22,6 @@ public class DepartamentoListView extends javax.swing.JPanel {
     private DepartamentoController depCtrl;
     private EmpleadoController empCtrl;
 
-    /**
-     * Creates new form DepartamentoListView
-     */
     public DepartamentoListView() {
         initComponents();
     }
@@ -34,12 +31,12 @@ public class DepartamentoListView extends javax.swing.JPanel {
         this.mainFrame = mainFrame;
         this.depCtrl = depCtrl;
         this.empCtrl = empCtrl;
-        configurarColumnaEliminarComoBoton(); 
-        cargarDatos();                       
+        configurarColumnaEliminarComoBoton();
+        cargarDatos();
     }
-    
+
     private void cargarDatos() {
-        DefaultTableModel model = (DefaultTableModel) tblEmpleados.getModel(); 
+        DefaultTableModel model = (DefaultTableModel) tblEmpleados.getModel();
         model.setRowCount(0);
 
         var lista = depCtrl.getDepartamentos();
@@ -54,28 +51,25 @@ public class DepartamentoListView extends javax.swing.JPanel {
         }
     }
 
-    
-  // ====== RENDERER: botón "Eliminar" ======
-private static class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
-    ButtonRenderer() {
-        setOpaque(true);
-        setFocusPainted(false);
-        setForeground(java.awt.Color.WHITE);
-        setBackground(new java.awt.Color(220, 53, 69));
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(2,10,2,10));
-        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
-    }
-    @Override
-    public java.awt.Component getTableCellRendererComponent(
-            javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        setText(value == null ? "Eliminar" : String.valueOf(value));
-        return this;
-    }
-}
+    private static class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
+        ButtonRenderer() {
+            setOpaque(true);
+            setFocusPainted(false);
+            setForeground(java.awt.Color.WHITE);
+            setBackground(new java.awt.Color(220, 53, 69));
+            setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 10));
+            setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+        }
 
-// ====== EDITOR: acción al hacer clic ======
+        @Override
+        public java.awt.Component getTableCellRendererComponent(
+                javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText(value == null ? "Eliminar" : String.valueOf(value));
+            return this;
+        }
+    }
+
     private class ButtonEditor extends DefaultCellEditor {
-
         private final JButton button = new JButton();
         private String currentText;
         private int currentRow = -1;
@@ -101,43 +95,39 @@ private static class ButtonRenderer extends JButton implements javax.swing.table
             return button;
         }
 
-    @Override
-    public Object getCellEditorValue() {
-        if (clicked) {
-            int resp = javax.swing.JOptionPane.showConfirmDialog(
-                    DepartamentoListView.this,
-                    "¿Estás seguro de eliminar este departamento?",
-                    "Confirmación",
-                    javax.swing.JOptionPane.YES_NO_OPTION,
-                    javax.swing.JOptionPane.WARNING_MESSAGE
-            );
-            if (resp == javax.swing.JOptionPane.YES_OPTION) {
-                int colNombre = tblEmpleados.getColumnModel().getColumnIndex("Nombre");
-                String nombre = String.valueOf(tblEmpleados.getValueAt(currentRow, colNombre));
-
-
-                boolean ok = depCtrl.eliminarPorNombre(nombre);
-                if (!ok) {
-                    javax.swing.JOptionPane.showMessageDialog(DepartamentoListView.this, "No se pudo eliminar (no encontrado).");
-                } else {
-                    cargarDatos();
+        @Override
+        public Object getCellEditorValue() {
+            if (clicked) {
+                int resp = javax.swing.JOptionPane.showConfirmDialog(
+                        DepartamentoListView.this,
+                        "¿Estás seguro de eliminar este departamento?",
+                        "Confirmación",
+                        javax.swing.JOptionPane.YES_NO_OPTION,
+                        javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+                if (resp == javax.swing.JOptionPane.YES_OPTION) {
+                    String nombre = String.valueOf(tblEmpleados.getValueAt(currentRow, 0));
+                    boolean ok = depCtrl.eliminarPorNombre(nombre);
+                    if (!ok) {
+                        javax.swing.JOptionPane.showMessageDialog(DepartamentoListView.this, "No se pudo eliminar (no encontrado).");
+                    } else {
+                        cargarDatos();
+                    }
                 }
             }
+            clicked = false;
+            return currentText;
         }
-        clicked = false;
-        return currentText;
+
+        @Override
+        public boolean stopCellEditing() {
+            clicked = false;
+            return super.stopCellEditing();
+        }
     }
 
-    @Override
-    public boolean stopCellEditing() {
-        clicked = false;
-        return super.stopCellEditing();
-    }    
-    
-    }
-    
     private void configurarColumnaEliminarComoBoton() {
-        tblEmpleados.getTableHeader().setReorderingAllowed(false); // opcional
+        tblEmpleados.getTableHeader().setReorderingAllowed(false);
         TableColumn colEliminar = tblEmpleados.getColumn("ELIMINAR");
         colEliminar.setCellRenderer(new ButtonRenderer());
         colEliminar.setCellEditor(new ButtonEditor());

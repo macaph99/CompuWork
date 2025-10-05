@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.*;
 
 /**
  *
@@ -35,27 +34,27 @@ public class EmpleadoListView extends javax.swing.JPanel {
     /**
      * Creates new form EmpleadoListView
      */
-    public EmpleadoListView(SeleccionDeRol mainFrame, EmpleadoController empCtrl) {
+    public EmpleadoListView(SeleccionDeRol mainFrame, DepartamentoController depCtrl, EmpleadoController empCtrl) {
         initComponents();
         this.mainFrame = mainFrame;
+        this.depCtrl = depCtrl;
         this.empCtrl = empCtrl;
         configurarColumnaEliminarComoBoton();
-        cargarDatos();      
+        cargarDatos();
     }
     
-     // Carga/recarga la tabla con la lista actual de empleados
-    private void cargarDatos() {
+      private void cargarDatos() {
         DefaultTableModel model = (DefaultTableModel) tblEmpleados.getModel();
-
         model.setRowCount(0);
-        var lista = empCtrl.getEmpleados();
 
+        var lista = empCtrl.getEmpleados();
         DateTimeFormatter F = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         for (var e : lista) {
             String fechaVinc = (e.getFechaVinculacion() == null) ? "" : e.getFechaVinculacion().format(F);
             String fechaIngr = (e.getFechaIngreso() == null) ? "" : e.getFechaIngreso().format(F);
 
-            Object[] fila = {
+            model.addRow(new Object[]{
                 e.getNombre(),
                 e.getApellido(),
                 e.getDocumento(),
@@ -63,120 +62,99 @@ public class EmpleadoListView extends javax.swing.JPanel {
                 fechaIngr,
                 e.getTipo_empleado(),
                 e.getSalario(),
-                "eliminar"
-            };
-            model.addRow(fila);
+                "Eliminar"
+            });
         }
     }
-     
-// ====== RENDERER: pinta un botón en la celda (apariencia) ======
-private static class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
 
-    ButtonRenderer() {
-        setOpaque(true);
-        setFocusPainted(false);
-        setForeground(java.awt.Color.WHITE);
-        setBackground(new java.awt.Color(220, 53, 69)); // rojo tipo "danger"
-        setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 10));
-        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+    private static class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
+        ButtonRenderer() {
+            setOpaque(true);
+            setFocusPainted(false);
+            setForeground(Color.WHITE);
+            setBackground(new Color(220, 53, 69));
+            setBorder(BorderFactory.createEmptyBorder(2, 10, 2, 10));
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText(value == null ? "Eliminar" : value.toString());
+            return this;
+        }
     }
 
-    @Override
-    public java.awt.Component getTableCellRendererComponent(
-            javax.swing.JTable table,
-            Object value,
-            boolean isSelected,
-            boolean hasFocus,
-            int row,
-            int column) {
+    private class ButtonEditor extends DefaultCellEditor {
+        private final JButton button = new JButton();
+        private String currentText;
+        private int currentRow = -1;
+        private boolean clicked;
 
-        setText(value == null ? "Eliminar" : String.valueOf(value));
-        return this;
-    }
-}
+        public ButtonEditor() {
+            super(new JTextField());
+            setClickCountToStart(1);
+            button.setOpaque(true);
+            button.setFocusPainted(false);
+            button.setForeground(Color.WHITE);
+            button.setBackground(new Color(220, 53, 69));
+            button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            button.addActionListener(e -> fireEditingStopped());
+        }
 
-// ====== EDITOR: hace que el botón sea clickeable y ejecute la acción ======
-private class ButtonEditor extends DefaultCellEditor {
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            currentText = (value == null) ? "Eliminar" : value.toString();
+            currentRow = row;
+            button.setText(currentText);
+            clicked = true;
+            return button;
+        }
 
-    private final JButton button = new JButton();
-    private String currentText;
-    private int currentRow = -1;
-    private boolean clicked;
+        @Override
+        public Object getCellEditorValue() {
+            if (clicked) {
+                int resp = JOptionPane.showConfirmDialog(
+                        EmpleadoListView.this,
+                        "¿Estás seguro de eliminar este empleado?",
+                        "Confirmación",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (resp == JOptionPane.YES_OPTION) {
+                    int colDoc = tblEmpleados.getColumnModel().getColumnIndex("Documento");
+                    Object cell = tblEmpleados.getValueAt(currentRow, colDoc);
 
-    public ButtonEditor() {
-        super(new JTextField());
-        setClickCountToStart(1);
-        button.setOpaque(true);
-        button.setFocusPainted(false);
-        button.setForeground(Color.WHITE);
-        button.setBackground(new Color(220, 53, 69));
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.addActionListener(e -> fireEditingStopped());
-    }
+                    long docId = (cell instanceof Number)
+                            ? ((Number) cell).longValue()
+                            : Long.parseLong(cell.toString());
 
-    @Override
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        currentText = (value == null) ? "Eliminar" : value.toString();
-        currentRow = row;
-        button.setText(currentText);
-        clicked = true;
-        return button;
-    }
-
-    @Override
-    public Object getCellEditorValue() {
-        if (clicked) {
-            int resp = JOptionPane.showConfirmDialog(
-                    EmpleadoListView.this,
-                    "¿Estás seguro de eliminar este empleado?",
-                    "Confirmación",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE
-            );
-            if (resp == JOptionPane.YES_OPTION) {
-                
-                int colDocumento = tblEmpleados.getColumnModel().getColumnIndex("Documento");
-                Object cell = tblEmpleados.getValueAt(currentRow, colDocumento);
-
-                long docId = (cell instanceof Number)
-                        ? ((Number) cell).longValue()
-                        : Long.parseLong(String.valueOf(cell));
-
-                boolean ok = empCtrl.eliminarPorDocumento(docId);
-
-                if (!ok) {
-                    JOptionPane.showMessageDialog(EmpleadoListView.this, "No se pudo eliminar (no encontrado).");
-                } else {
-                    cargarDatos();
+                    boolean ok = empCtrl.eliminarPorDocumento(docId);
+                    if (!ok) {
+                        JOptionPane.showMessageDialog(EmpleadoListView.this, "No se pudo eliminar (no encontrado).");
+                    } else {
+                        cargarDatos();
+                    }
                 }
             }
+            clicked = false;
+            return currentText;
         }
-        clicked = false;
-        return currentText; 
+
+        @Override
+        public boolean stopCellEditing() {
+            clicked = false;
+            return super.stopCellEditing();
+        }
     }
 
-    @Override
-    public boolean stopCellEditing() {
-        clicked = false;
-        return super.stopCellEditing();
+    private void configurarColumnaEliminarComoBoton() {
+        tblEmpleados.getTableHeader().setReorderingAllowed(false);
+        TableColumn colEliminar = tblEmpleados.getColumn("ELIMINAR");
+        colEliminar.setCellRenderer(new ButtonRenderer());
+        colEliminar.setCellEditor(new ButtonEditor());
+        colEliminar.setPreferredWidth(100);
     }
-}
-
-private void configurarColumnaEliminarComoBoton() {
-    tblEmpleados.getTableHeader().setReorderingAllowed(false);
-    javax.swing.table.TableColumn colEliminar = tblEmpleados.getColumn("ELIMINAR");
-    colEliminar.setCellRenderer(new ButtonRenderer());
-    colEliminar.setCellEditor(new ButtonEditor());
-
-    colEliminar.setPreferredWidth(100);
-}
-
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -318,7 +296,7 @@ private void configurarColumnaEliminarComoBoton() {
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
-
+       
         /*try{
             String nombreDepartamento = textNombre.getText();
             String descripcionDepartamento = textDescripcion.getText();
