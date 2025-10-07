@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package compuwork.controller;
-import compuwork.exception.CompuExceptions;
 import compuwork.service.Sistema;
 
 public class AsignacionController {
@@ -18,7 +17,7 @@ public class AsignacionController {
             sistema.asignarEmpleadoADepartamento(idEmpleado, idDepartamento); 
             System.out.println("Asignación realizada."); 
         }
-        catch (CompuExceptions ex){ 
+        catch (Exception ex){ 
             System.out.println("Error: "+ex.getMessage()); 
         }
     }

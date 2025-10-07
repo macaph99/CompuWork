@@ -1,6 +1,5 @@
 package compuwork.controller;
 
-import compuwork.exception.CompuExceptions;
 import compuwork.models.Empleado;
 import compuwork.service.Sistema;
 import java.util.List;
@@ -19,28 +18,28 @@ public class EmpleadoController {
         }
         try {
             sistema.registrarEmpleado(empleado);
-        } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     public void eliminar(int id) {
         try {
             sistema.eliminarEmpleado(id);
-        } catch (CompuExceptions ex) {
-            System.out.println("Error: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
     
     public boolean eliminarPorDocumento(long documento) {
     try {
-        for (Empleado e : sistema.listarEmpleados()) {
-            if (e.getDocumento() == documento) {
-                return sistema.eliminarEmpleado(e.getIdEmpleado());
+        for (Empleado empleado : sistema.listarEmpleados()) {
+            if (empleado.getDocumento() == documento) {
+                return sistema.eliminarEmpleado(empleado.getIdEmpleado());
             }
         }
-    } catch (Exception ex) {
-        System.out.println("Error eliminando empleado: " + ex.getMessage());
+    } catch (Exception e) {
+        System.out.println("Error eliminando empleado: " + e.getMessage());
     }
     return false;
 }
@@ -54,8 +53,8 @@ public class EmpleadoController {
         if (lista.isEmpty()) {
             System.out.println("No hay empleados.");
         } else {
-            for (Empleado e : lista) {
-                System.out.println(e);
+            for (Empleado empleado : lista) {
+                System.out.println(empleado);
             }
         }
     }
@@ -63,21 +62,21 @@ public class EmpleadoController {
     public void asignarADepartamento(int idEmpleado, int idDepartamento) {
         try {
             sistema.asignarEmpleadoADepartamento(idEmpleado, idDepartamento);
-        } catch (Exception ex) {
-            System.out.println("Error asignando empleado a departamento: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error asignando empleado a departamento: " + e.getMessage());
         }
     }
 
 
     public boolean eliminarPorDocumento(Long documento) {
         List<Empleado> lista = sistema.listarEmpleados();
-        for (Empleado e : lista) {
-            if (e.getDocumento() == documento) {
+        for (Empleado empleado : lista) {
+            if (empleado.getDocumento() == documento) {
                 try {
-                    sistema.eliminarEmpleado(e.getIdEmpleado());
+                    sistema.eliminarEmpleado(empleado.getIdEmpleado());
                     return true;
-                } catch (CompuExceptions ex) {
-                    System.out.println("Error: " + ex.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
         }
