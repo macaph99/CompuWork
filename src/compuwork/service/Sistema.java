@@ -25,7 +25,7 @@ public class Sistema {
 
     public Empleado buscarEmpleado(int id) throws NotFoundException {
         return empleados.stream()
-                .filter(e -> e.getIdEmpleado() == id)
+                .filter(empleado -> empleado.getIdEmpleado() == id)
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("Empleado id=" + id + " no encontrado"));
     }
@@ -36,7 +36,7 @@ public class Sistema {
 
     public Departamento buscarDepartamento(int id) throws NotFoundException {
         return departamentos.stream()
-                .filter(d -> d.getIdDepartamento() == id)
+                .filter(departamento -> departamento.getIdDepartamento() == id)
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("Departamento id=" + id + " no encontrado"));
     }
@@ -55,8 +55,8 @@ public class Sistema {
 
     public boolean eliminarDepartamento(int id) throws NotFoundException {
         Departamento departamento = buscarDepartamento(id);
-        for (Empleado e : new ArrayList<>(departamento.getEmpleados())) {
-            departamento.removerEmpleado(e);
+        for (Empleado empleado : new ArrayList<>(departamento.getEmpleados())) {
+            departamento.removerEmpleado(empleado);
         }
         return departamentos.remove(departamento);
     }

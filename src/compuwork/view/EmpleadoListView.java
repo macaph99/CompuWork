@@ -50,18 +50,18 @@ public class EmpleadoListView extends javax.swing.JPanel {
         var lista = empCtrl.getEmpleados();
         DateTimeFormatter F = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        for (var e : lista) {
-            String fechaVinc = (e.getFechaVinculacion() == null) ? "" : e.getFechaVinculacion().format(F);
-            String fechaIngr = (e.getFechaIngreso() == null) ? "" : e.getFechaIngreso().format(F);
+        for (var empleado : lista) {
+            String fechaVinc = (empleado.getFechaVinculacion() == null) ? "" : empleado.getFechaVinculacion().format(F);
+            String fechaIngr = (empleado.getFechaIngreso() == null) ? "" : empleado.getFechaIngreso().format(F);
 
             model.addRow(new Object[]{
-                e.getNombre(),
-                e.getApellido(),
-                e.getDocumento(),
+                empleado.getNombre(),
+                empleado.getApellido(),
+                empleado.getDocumento(),
                 fechaVinc,
                 fechaIngr,
-                e.getTipo_empleado(),
-                e.getSalario(),
+                empleado.getTipo_empleado(),
+                empleado.getSalario(),
                 "Eliminar"
             });
         }
@@ -161,7 +161,6 @@ public class EmpleadoListView extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         Nombre = new javax.swing.JLabel();
-        botonRegistrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         botonRegresar = new javax.swing.JButton();
@@ -170,20 +169,10 @@ public class EmpleadoListView extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setPreferredSize(new java.awt.Dimension(800, 600));
 
         Nombre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Nombre.setText("Lista de empleados:");
-
-        botonRegistrar.setBackground(new java.awt.Color(0, 255, 0));
-        botonRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        botonRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegistrar.setText("Guardar");
-        botonRegistrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, null, new java.awt.Color(102, 102, 102)));
-        botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegistrarActionPerformed(evt);
-            }
-        });
 
         jPanel3.setBackground(new java.awt.Color(153, 255, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -199,16 +188,16 @@ public class EmpleadoListView extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(125, 125, 125)
+                .addGap(156, 156, 156)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addGap(37, 37, 37))
         );
 
         botonRegresar.setBackground(new java.awt.Color(255, 153, 0));
@@ -249,43 +238,38 @@ public class EmpleadoListView extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(Nombre))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(198, Short.MAX_VALUE)
+                .addComponent(Nombre)
+                .addGap(197, 197, 197))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(242, 242, 242)
+                .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
                 .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(botonRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -295,37 +279,9 @@ public class EmpleadoListView extends javax.swing.JPanel {
         mainFrame.cambiarVista(adminView);
     }//GEN-LAST:event_botonRegresarActionPerformed
 
-    private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
-       
-        /*try{
-            String nombreDepartamento = textNombre.getText();
-            String descripcionDepartamento = textDescripcion.getText();
-            Departamento departamento = new Departamento(nombreDepartamento, descripcionDepartamento);
-
-            if(nombreDepartamento.equals("") && descripcionDepartamento.equals("")){
-                JOptionPane.showMessageDialog(this, "Campos nombre y descripción vacios.");
-            } else if(nombreDepartamento.equals("") && !descripcionDepartamento.equals("")){
-                JOptionPane.showMessageDialog(this, "Campo nombre vacio.");
-            } else if(!nombreDepartamento.equals("") && descripcionDepartamento.equals("")){
-                JOptionPane.showMessageDialog(this, "Campo descripcion vacio.");
-            } else{
-                depCtrl.registrar(departamento);
-
-                JOptionPane.showMessageDialog(this, "Departamento registrado con éxito");
-
-                textNombre.setText("");
-                textDescripcion.setText("");
-            }
-
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }*/
-    }//GEN-LAST:event_botonRegistrarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Nombre;
-    private javax.swing.JButton botonRegistrar;
     private javax.swing.JButton botonRegresar;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;

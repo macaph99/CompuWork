@@ -1,6 +1,5 @@
 package compuwork.controller;
 
-import compuwork.exception.CompuExceptions;
 import compuwork.models.Departamento;
 import compuwork.models.Empleado;
 import compuwork.service.Sistema;
@@ -21,15 +20,15 @@ public class DepartamentoController {
         return sistema.listarDepartamentos();
     }
 
-    public Departamento buscar(int id) throws CompuExceptions {
+    public Departamento buscar(int id) throws Exception {
         return sistema.buscarDepartamento(id);
     }
 
     public void eliminar(int id) {
         try {
             sistema.eliminarDepartamento(id);
-        } catch (CompuExceptions ex) {
-            System.out.println("Error: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -40,8 +39,8 @@ public class DepartamentoController {
                     return sistema.eliminarDepartamento(d.getIdDepartamento());
                 }
             }
-        } catch (CompuExceptions ex) {
-            System.out.println("Error: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
         return false;
     }
@@ -58,8 +57,8 @@ public class DepartamentoController {
             System.out.println("Empleados de " + departamento.getNombre() + ":");
             if (departamento.getEmpleados().isEmpty()) System.out.println("(sin empleados)");
             for (Empleado empleado : departamento.getEmpleados()) System.out.println(" - " + empleado);
-        } catch (CompuExceptions ex) {
-            System.out.println("Error: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
