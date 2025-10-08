@@ -28,8 +28,6 @@ _Desarrollado en Java con arquitectura MVC, interfaz Swing y pruebas unitarias c
 
 </div>
 
-![Inicio](0db2804c-5f69-4da5-ad3d-61755608e827.png)
-
 CompuWork es una aplicación de escritorio desarrollada en **Java** con **Swing**, diseñada para gestionar empleados, departamentos y reportes de desempeño dentro de una organización.  
 Su arquitectura modular permite una administración eficiente, escalable y mantenible, integrando **controladores, servicios, modelos y vistas**, además de **pruebas unitarias con JUnit**.
 
@@ -138,31 +136,6 @@ Muestra la estructura del sistema, herencias, relaciones y métodos principales:
 ### 🧠 Diagrama de Casos de Uso
 Define los roles y las acciones posibles de cada actor en el sistema:  
 ![Casos de Uso](290e7a89-9aa2-4585-b789-cd8eafc8b0d6.png)
-
----
-
-## 🖥️ Interfaz del Sistema
-
-### 🏠 Menú principal  
-![Inicio](0db2804c-5f69-4da5-ad3d-61755608e827.png)
-
-### 👨‍💼 Panel de administrador  
-![Admin Menu](14c59738-a487-45ad-852d-6668c4a10f9d.png)
-
-### 🏢 Registro de departamento  
-![Departamento](e26a2def-1e0a-44dc-bebc-52fe3c39b9b2.png)
-
-### 👤 Registro de empleado  
-![Empleado](0e9971c8-607f-413e-a350-a40da2e3c316.png)
-
-### 📋 Listado de departamentos  
-![Lista departamentos](84a19334-25c1-490f-ad6c-ef900942fbbf.png)
-
-### 📋 Listado de empleados  
-![Lista empleados](eab17dad-2f5d-46fd-b1eb-618572311e1e.png)
-
-### 👨‍🏭 Panel de empleado  
-![Panel empleado](7541e924-638d-462f-a75d-afe04bab36fe.png)
 
 ---
 
