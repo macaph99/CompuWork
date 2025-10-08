@@ -60,6 +60,28 @@ public class Sistema {
         }
         return departamentos.remove(departamento);
     }
+    
+    public boolean eliminarEmpleadoPorDocumento(long documento) throws NotFoundException {
+    Empleado empleado = empleados.stream()
+            .filter(e -> {
+                try {
+                    return ((Number) e.getClass().getMethod("getDocumento").invoke(e)).longValue() == documento;
+                } catch (Exception ex) {
+                    try {
+                        return ((Number) e.getClass().getMethod("getDoc").invoke(e)).longValue() == documento;
+                    } catch (Exception ignore) {
+                        return false;
+                    }
+                }
+            })
+            .findFirst()
+            .orElseThrow(() -> new NotFoundException("Empleado con documento=" + documento + " no encontrado"));
+
+        if (empleado.getDepartamento() != null) {
+            empleado.getDepartamento().removerEmpleado(empleado);
+        }
+        return empleados.remove(empleado); 
+    }
 
     public void asignarEmpleadoADepartamento(int idEmpleado, int idDepartamento)
             throws NotFoundException, AsignacionException {
