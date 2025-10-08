@@ -10,6 +10,7 @@ public class Departamento {
     private int idDepartamento;
     private String nombre;
     private String descripcion;
+    private int numeroEmpleados;
     private final List<Empleado> empleados = new ArrayList<>();
 
     public Departamento() {
@@ -44,6 +45,10 @@ public class Departamento {
 
     public int getNumeroEmpleados() {
         return empleados.size();
+    }
+    
+    public void setNumeroEmpleados(int numeroEmpleados) {
+        this.numeroEmpleados = numeroEmpleados;
     }
 
     public List<Empleado> getEmpleados() {
